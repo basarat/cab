@@ -6,7 +6,14 @@ npm install
 npm link 
 ```
 
-Now run `cab`. Recommend you checkout `nodemon`.
+Now you can run `cab`. 
+
+We highly recommend you use [`nodemon`](https://github.com/remy/nodemon): 
+
+```
+npm install nodemon -g
+nodemon
+```
 
 # IDE
 We presently use [`atom-typescript`](https://atom.io/packages/atom-typescript). Eventually this project should be self hosting. 
