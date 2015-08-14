@@ -23,6 +23,8 @@
     "files": [
         "./errorCodes.ts",
         "./index.ts",
+        "./public/common/main.ts",
+        "./public/common/utils.ts",
         "./typings/express/express.d.ts",
         "./typings/mime/mime.d.ts",
         "./typings/node/node.d.ts",

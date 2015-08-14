@@ -27,6 +27,8 @@
   "preferGlobal": true,
   "homepage": "https://github.com/basarat/cab#readme",
   "dependencies": {
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "ntypescript": "1.201508132343.1",
+    "react": "^0.13.3"
   }
 }

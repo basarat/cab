@@ -5,14 +5,12 @@ import {errorCodes, exit} from "./errorCodes";
 let port = 3000;
 var app = express();
 
-app.get('/', function(req, res) {
-    res.send('Hello World!');
-});
+app.use(express.static('public'));
 
 var server = app.listen(port, function(e) {
     if (e) {
         console.error(e);
         exit(errorCodes.couldNotListen);
     }
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`Dashboard at http://localhost:${port}`);
 });
