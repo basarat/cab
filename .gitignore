@@ -3,3 +3,4 @@ node_modules
 .baseDir.ts
 src/**/*.js
 !src/webpack.config.js
+!src/server/bundle.js

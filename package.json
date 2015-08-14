@@ -2,9 +2,9 @@
   "name": "cab",
   "version": "1.0.0",
   "description": "Code Analysis Buddy",
-  "main": "src/index.js",
+  "main": "src/server.js",
   "bin": {
-    "cab": "./src/index.js"
+    "cab": "./src/server.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -32,5 +32,10 @@
     "ntypescript": "1.201508132343.1",
     "react": "^0.13.3",
     "react-tap-event-plugin": "^0.1.7"
+  },
+  "devDependencies": {
+    "http-proxy": "^1.11.1",
+    "webpack": "^1.11.0",
+    "webpack-dev-server": "^1.10.1"
   }
 }

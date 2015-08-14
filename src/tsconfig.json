@@ -20,9 +20,9 @@
         "!./node_modules/**/*"
     ],
     "files": [
-        "./index.ts",
-        "./public/common/main.ts",
-        "./public/common/utils.ts",
+        "./app/common/utils.ts",
+        "./app/main.ts",
+        "./server.ts",
         "./server/errorCodes.ts",
         "./typings/express/express.d.ts",
         "./typings/mime/mime.d.ts",
