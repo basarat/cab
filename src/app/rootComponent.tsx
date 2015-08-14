@@ -1,10 +1,7 @@
 import * as React from "react";
-import {RaisedButton, getChildContext, childContextTypes} from "./material-ui";
+import {BaseComponent,RaisedButton} from "./material-ui";
 
-export class RootComponent extends React.Component<{}, {}>{
-
-    static childContextTypes = childContextTypes;
-    getChildContext = getChildContext;
+export class RootComponent extends BaseComponent<{}, {}>{
 
     render() {
         return <div>
