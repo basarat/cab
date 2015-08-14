@@ -1,5 +1,4 @@
 {
-    "version": "1.5.0-beta",
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
@@ -23,6 +22,7 @@
         "./app/common/utils.ts",
         "./app/main.ts",
         "./server.ts",
+        "./server/bundle.ts",
         "./server/errorCodes.ts",
         "./typings/express/express.d.ts",
         "./typings/mime/mime.d.ts",

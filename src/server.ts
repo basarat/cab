@@ -2,6 +2,7 @@
 import * as express from "express";
 import {errorCodes, exit} from "./server/errorCodes";
 import path = require('path');
+import {bundle,webPackPort} from './server/bundle';
 
 let port = 3000;
 var publicPath = path.resolve(__dirname, 'public');
@@ -10,11 +11,10 @@ var app = express();
 
 app.use(express.static(publicPath, {}));
 
-// We only want to run the workflow when not in production
+// You might want to run this only at dev time
 if (true) {
     var httpProxy = require('http-proxy');
-    var proxy = httpProxy.createProxyServer();
-    var bundle = require('./server/bundle.js');
+    var proxy = httpProxy.createProxyServer();    
     bundle();
     app.all('/build/*', function(req, res) {
         proxy.web(req, res, {
