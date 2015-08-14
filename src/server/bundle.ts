@@ -25,10 +25,6 @@ export function bundle() {
         // Also keep existing
     ].concat(prodConfig.entry);
     
-    // Everything related to Webpack should go through a build path,
-    // localhost:3000/build. That makes proxying easier to handle
-    prodConfig.output.publicPath = '/build/';
-    
     // We have to manually add the Hot Replacement plugin when running
     // from Node
     prodConfig.plugins = [new Webpack.HotModuleReplacementPlugin()];
