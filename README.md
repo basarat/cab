@@ -1,8 +1,10 @@
 # cab
-Code Analysis B__. Gives in depth analysis and a dev environment for TypeScript that is: 
+Code Analysis Butler. Gives in depth analysis and a dev environment for TypeScript that is: 
 
 * easy to install
 * easy to use
+
+Let us take you for a ride of your life.
 
 ## Usage 
 Run the following to get it: 
