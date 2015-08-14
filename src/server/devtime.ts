@@ -17,10 +17,10 @@ function bundle() {
     /**
      * Update the prod config for dev time ease
      */
-    var prodConfig = Object.create(config);
+    var devConfig = Object.create(config);
     // Makes sure errors in console map to the correct file and line number
-    prodConfig.devtool = 'eval';
-    prodConfig.entry = [        
+    devConfig.devtool = 'eval';
+    devConfig.entry = [        
     // For hot style updates
         'webpack/hot/dev-server',
         // The script refreshing the browser on hot updates
@@ -29,13 +29,13 @@ function bundle() {
     ].concat(config.entry);
     
     // We have to manually add the Hot Replacement plugin when running
-    prodConfig.plugins = [new Webpack.HotModuleReplacementPlugin()];    
+    devConfig.plugins = [new Webpack.HotModuleReplacementPlugin()];    
     /** End changes of prod config */
 
     // First we fire up Webpack an pass in the configuration we
     // created
     let bundleStart: number;
-    let compiler = Webpack(prodConfig);
+    let compiler = Webpack(devConfig);
 
     // We give notice in the terminal when it starts bundling and
     // set the time it started
@@ -101,11 +101,11 @@ export function setup(app: express.Express) {
 
     // Dev time detection
     app.use('/', function(req, res, next) {
-        if (req.cookies.dev == 'true') {            
+        if (req.cookies.dev == 'true') {
             devTime = true;
-            res.setHeader('Cache-Control','no-cache, no-store, must-revalidate');
-            res.setHeader('Pragma','no-cache');
-            res.setHeader('Expires','0');
+            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+            res.setHeader('Pragma', 'no-cache');
+            res.setHeader('Expires', '0');
         }
         else {
             devTime = false;
@@ -113,7 +113,7 @@ export function setup(app: express.Express) {
         next();
     });
 
-    app.use('/dev', (req, res, next) => {        
+    app.use('/dev', (req, res, next) => {
         devTime = true;
         res.cookie(cookies.dev, true);
         res.send('Hot Reload setup!')
@@ -121,6 +121,14 @@ export function setup(app: express.Express) {
 
     app.use('/prod', (req, res, next) => {
         devTime = false;
+        
+        // Make sure webpack has all the stuff built        
+        var Webpack = require('webpack');
+        let compiler = Webpack(config);
+        compiler.run((err, stats) => {
+            console.log('Refreshed bundle');
+        });
+
         res.cookie(cookies.dev, false);
         res.send('Using static bundled files')
     });
