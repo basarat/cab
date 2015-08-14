@@ -1,21 +1,44 @@
 /**
  * Dev time server for front-end
  */
-var webpackConfig = require('./../webpack.config.js');
 var path = require('path');
 var fs = require('fs');
-var mainPath = path.resolve(__dirname, '..', 'app', 'main.js');
+var prodConfig = require('../webpack.config.js');
 
-export var webPackPort = 8888;
+export var webpackPort = 8888;
 
 export function bundle() {
     var Webpack = require('webpack');
     var WebpackDevServer = require('webpack-dev-server');
 
+    /**
+     * Update the prod config for dev time ease
+     */
+    // Makes sure errors in console map to the correct file
+    // and line number
+    prodConfig.devtool = 'eval';
+    prodConfig.entry = [        
+        // For hot style updates
+        'webpack/hot/dev-server',
+        // The script refreshing the browser on none hot updates
+        `webpack-dev-server/client?http://localhost:${webpackPort}`,
+        // Also keep existing
+    ].concat(prodConfig.entry);
+    
+    // Everything related to Webpack should go through a build path,
+    // localhost:3000/build. That makes proxying easier to handle
+    prodConfig.output.publicPath = '/build/';
+    
+    // We have to manually add the Hot Replacement plugin when running
+    // from Node
+    prodConfig.plugins = [new Webpack.HotModuleReplacementPlugin()];
+    
+    /** End changes of prod config */
+
     // First we fire up Webpack an pass in the configuration we
     // created
-    var bundleStart = null;
-    var compiler = Webpack(webpackConfig);
+    let bundleStart: number;
+    let compiler = Webpack(prodConfig);
 
     // We give notice in the terminal when it starts bundling and
     // set the time it started
@@ -49,7 +72,7 @@ export function bundle() {
 
     // We fire up the development server and give notice in the terminal
     // that we are starting the initial bundle
-    bundler.listen(webPackPort, 'localhost', function() {
+    bundler.listen(webpackPort, 'localhost', function() {
         console.log('Bundling project, please wait...');
     });
 };

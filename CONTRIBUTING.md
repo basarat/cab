@@ -14,3 +14,7 @@ webpack.config.js
 npm install
 npm prune
 ```
+
+## If messing with webpack config
+* Delete `bundle.js`. Run app and see it works
+* Now run `npm run prepublish`. Run app and see it works

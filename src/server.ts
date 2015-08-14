@@ -11,7 +11,7 @@ var app = express();
 
 app.use(express.static(publicPath, {}));
 
-import {bundle, webPackPort} from './server/bundle';
+import {bundle, webpackPort} from './server/bundle';
 // We determine devtime by checking if there is actually a bundled front-end source code
 if (!fs.existsSync(__dirname + '/public/build/bundle.js')) {
     var httpProxy = require('http-proxy');
@@ -19,7 +19,7 @@ if (!fs.existsSync(__dirname + '/public/build/bundle.js')) {
     bundle();
     app.all('/build/*', function(req, res) {
         proxy.web(req, res, {
-            target: `http://localhost:${webPackPort}`
+            target: `http://localhost:${webpackPort}`
         });
     });
 }
