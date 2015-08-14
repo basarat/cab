@@ -28,7 +28,9 @@
   "homepage": "https://github.com/basarat/cab#readme",
   "dependencies": {
     "express": "4.13.0",
+    "material-ui": "^0.10.4",
     "ntypescript": "1.201508132343.1",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "react-tap-event-plugin": "^0.1.7"
   }
 }
