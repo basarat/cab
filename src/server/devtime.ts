@@ -126,7 +126,12 @@ export function setup(app: express.Express) {
         var Webpack = require('webpack');
         let compiler = Webpack(config);
         compiler.run((err, stats) => {
-            console.log('Refreshed bundle');
+            if (err) {
+                console.error('failed to refresh bundle', err);
+            }
+            else {
+                console.log('Refreshed bundle');
+            }
         });
 
         res.cookie(cookies.dev, false);
