@@ -1,3 +1,6 @@
+/**
+ * Dev time server for front-end
+ */
 var webpackConfig = require('./../webpack.config.js');
 var path = require('path');
 var fs = require('fs');
@@ -23,15 +26,14 @@ export function bundle() {
 
     // We also give notice when it is done compiling, including the
     // time it took. Nice to have
-    compiler.plugin('done', function() {
+    compiler.plugin('done', function(result) {
         console.log('Bundled in ' + (Date.now() - bundleStart) + 'ms!');
     });
 
     var bundler = new WebpackDevServer(compiler, {
 
         // We need to tell Webpack to serve our bundled application
-        // from the build path. When proxying:
-        // http://localhost:3000/build -> http://localhost:8080/build
+        // from the build path. When proxying
         publicPath: '/build/',
 
         // Configure hot replacement

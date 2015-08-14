@@ -2,4 +2,6 @@
 node_modules
 .baseDir.ts
 src/**/*.js
+src/**/*.js.map
 !src/webpack.config.js
+!src/webpack.prod.config.js
