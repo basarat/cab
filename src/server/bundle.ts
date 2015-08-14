@@ -14,21 +14,18 @@ export function bundle() {
     /**
      * Update the prod config for dev time ease
      */
-    // Makes sure errors in console map to the correct file
-    // and line number
+    // Makes sure errors in console map to the correct file and line number
     prodConfig.devtool = 'eval';
     prodConfig.entry = [        
         // For hot style updates
         'webpack/hot/dev-server',
-        // The script refreshing the browser on none hot updates
+        // The script refreshing the browser on hot updates
         `webpack-dev-server/client?http://localhost:${webpackPort}`,
         // Also keep existing
     ].concat(prodConfig.entry);
     
     // We have to manually add the Hot Replacement plugin when running
-    // from Node
-    prodConfig.plugins = [new Webpack.HotModuleReplacementPlugin()];
-    
+    prodConfig.plugins = [new Webpack.HotModuleReplacementPlugin()];    
     /** End changes of prod config */
 
     // First we fire up Webpack an pass in the configuration we
