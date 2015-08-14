@@ -6,7 +6,7 @@ npm install
 npm link 
 ```
 
-Now run `cab` and visit `http://localhost:port/dev` to enable the development workflow.
+Now run `cab`. Recommend you checkout `nodemon`.
 
 # IDE
 We presently use [`atom-typescript`](https://atom.io/packages/atom-typescript). Eventually this project should be self hosting. 

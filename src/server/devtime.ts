@@ -8,7 +8,8 @@ import {cookies} from "./cookies";
 
 var config = require('../webpack.config.js');
 
-export var webpackPort = 8888;
+export const webpackPort = 8888;
+export const devtimeDetectionFile = __dirname + '/devtime.txt';
 
 function bundle() {
     var Webpack = require('webpack');
@@ -74,16 +75,43 @@ function bundle() {
     });
 };
 
+function ensureBundledOnDeploy() {
+    var outFile = path.join(config.output.path, config.output.filename);
+    if (fs.existsSync(outFile)) {
+        return; // all good
+    }
+    
+    // build
+    var Webpack = require('webpack');
+    let compiler = Webpack(config);
+    compiler.run((err, stats) => {
+        if (err) {
+            console.error('Failed to refresh bundle', err);
+        }
+        else {
+            console.log('Refreshed bundle');
+        }
+    });
+}
+
 export function setup(app: express.Express) {
 
+    ensureBundledOnDeploy();
+
+    // Either immediately. Or only if needed
     var _proxy;
-    var devTime = false;
     function startProxyAndBundleIfNeeded() {
         if (_proxy) return;
 
         var httpProxy = require('http-proxy');
         _proxy = httpProxy.createProxyServer();
         bundle();
+    }
+
+    var devTime = fs.existsSync(devtimeDetectionFile);
+    if (devTime) {
+        // Start immediately
+        startProxyAndBundleIfNeeded();
     }
 
     // Proxy handling
@@ -99,42 +127,33 @@ export function setup(app: express.Express) {
         }
     });
 
-    // Dev time detection
+    function addDevHeaders(res: express.Response) {
+        res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+        res.setHeader('Pragma', 'no-cache');
+        res.setHeader('Expires', '0');
+    }
+
+    // Dev time no caching
     app.use('/', function(req, res, next) {
-        if (req.cookies.dev == 'true') {
-            devTime = true;
-            res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
-            res.setHeader('Pragma', 'no-cache');
-            res.setHeader('Expires', '0');
-        }
-        else {
-            devTime = false;
+        if (devTime) {
+            addDevHeaders(res);
         }
         next();
     });
 
     app.use('/dev', (req, res, next) => {
+        addDevHeaders(res);
         devTime = true;
-        res.cookie(cookies.dev, true);
+        fs.writeFileSync(devtimeDetectionFile, 'If this file exists the server will start in dev mode');
         res.send('Hot Reload setup!')
     });
 
     app.use('/prod', (req, res, next) => {
-        devTime = false;
-        
-        // Make sure webpack has all the stuff built        
-        var Webpack = require('webpack');
-        let compiler = Webpack(config);
-        compiler.run((err, stats) => {
-            if (err) {
-                console.error('Failed to refresh bundle', err);
-            }
-            else {
-                console.log('Refreshed bundle');
-            }
-        });
-
-        res.cookie(cookies.dev, false);
+        addDevHeaders(res);
+        if (devTime) {
+            devTime = false;
+            fs.unlinkSync(devtimeDetectionFile);
+        }
         res.send('Using static bundled files')
     });
 }
