@@ -1,28 +1,32 @@
 /**
  * Dev time server for front-end
  */
-var path = require('path');
-var fs = require('fs');
-var prodConfig = require('../webpack.config.js');
+import path = require('path');
+import fs = require('fs');
+import express = require('express');
+import {cookies} from "./cookies";
+
+var config = require('../webpack.config.js');
 
 export var webpackPort = 8888;
 
-export function bundle() {
+function bundle() {
     var Webpack = require('webpack');
     var WebpackDevServer = require('webpack-dev-server');
 
     /**
      * Update the prod config for dev time ease
      */
+    var prodConfig = Object.create(config);
     // Makes sure errors in console map to the correct file and line number
     prodConfig.devtool = 'eval';
     prodConfig.entry = [        
-        // For hot style updates
+    // For hot style updates
         'webpack/hot/dev-server',
         // The script refreshing the browser on hot updates
         `webpack-dev-server/client?http://localhost:${webpackPort}`,
         // Also keep existing
-    ].concat(prodConfig.entry);
+    ].concat(config.entry);
     
     // We have to manually add the Hot Replacement plugin when running
     prodConfig.plugins = [new Webpack.HotModuleReplacementPlugin()];    
@@ -69,3 +73,55 @@ export function bundle() {
         console.log('Bundling project, please wait...');
     });
 };
+
+export function setup(app: express.Express) {
+
+    var _proxy;
+    var devTime = false;
+    function startProxyAndBundleIfNeeded() {
+        if (_proxy) return;
+
+        var httpProxy = require('http-proxy');
+        _proxy = httpProxy.createProxyServer();
+        bundle();
+    }
+
+    // Proxy handling
+    app.all('/build/*', function(req, res, next) {
+        if (devTime) {
+            startProxyAndBundleIfNeeded();
+            _proxy.web(req, res, {
+                target: `http://localhost:${webpackPort}`
+            });
+        }
+        else {
+            next();
+        }
+    });
+
+    // Dev time detection
+    app.use('/', function(req, res, next) {
+        if (req.cookies.dev == 'true') {            
+            devTime = true;
+            res.setHeader('Cache-Control','no-cache, no-store, must-revalidate');
+            res.setHeader('Pragma','no-cache');
+            res.setHeader('Expires','0');
+        }
+        else {
+            devTime = false;
+        }
+        next();
+    });
+
+    app.use('/dev', (req, res, next) => {        
+        devTime = true;
+        res.cookie(cookies.dev, true);
+        res.send('Hot Reload setup!')
+    });
+
+    app.use('/prod', (req, res, next) => {
+        devTime = false;
+        res.cookie(cookies.dev, false);
+        res.send('Using static bundled files')
+    });
+}

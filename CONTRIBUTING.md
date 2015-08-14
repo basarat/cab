@@ -16,5 +16,5 @@ npm prune
 ```
 
 ## If messing with webpack config
-* Delete `bundle.js`. Run app and see it works
-* Now run `npm run prepublish`. Run app and see it works
+* Visit `/dev` to enable dev workflow and then test app
+* Visit `/prod` to enable min js workflow and then test app
