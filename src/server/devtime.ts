@@ -75,12 +75,7 @@ function bundle() {
     });
 };
 
-function ensureBundledOnDeploy() {
-    var outFile = path.join(config.output.path, config.output.filename);
-    if (fs.existsSync(outFile)) {
-        return; // all good
-    }
-    
+function rebundleDeploy() {
     // build
     var Webpack = require('webpack');
     let compiler = Webpack(config);
@@ -96,7 +91,10 @@ function ensureBundledOnDeploy() {
 
 export function setup(app: express.Express) {
 
-    ensureBundledOnDeploy();
+    var outFile = path.join(config.output.path, config.output.filename);
+    if (!fs.existsSync(outFile)) {
+        rebundleDeploy();
+    }
 
     // Either immediately. Or only if needed
     var _proxy;
@@ -149,6 +147,7 @@ export function setup(app: express.Express) {
     });
 
     app.use('/prod', (req, res, next) => {
+        rebundleDeploy();
         addDevHeaders(res);
         if (devTime) {
             devTime = false;

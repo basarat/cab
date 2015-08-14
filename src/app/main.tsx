@@ -1,8 +1,8 @@
 import {RootComponent} from "./rootComponent";
 import * as React from "react";
 
-// needed for material UI
-let injectTapEventPlugin = require("react-tap-event-plugin");
+// Normalize css 
+require('normalize.css');
 
 document.addEventListener('DOMContentLoaded', () => {
     React.render(<RootComponent />, document.getElementById('app'));

@@ -23,7 +23,7 @@ atom .
 ```
 
 ## Webpack
-The workflow we are using is similar to: http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup
+The workflow we are using is similar to [the one documented here](http://www.christianalfoni.com/articles/2015_04_19_The-ultimate-webpack-setup)
 
 The meanings of these folders comes from that
 ```
