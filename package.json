@@ -1,0 +1,25 @@
+{
+  "name": "cab",
+  "version": "1.0.0",
+  "description": "Code Analysis Buddy",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/basarat/cab.git"
+  },
+  "keywords": [
+    "code",
+    "editor",
+    "javascript",
+    "typescript"
+  ],
+  "author": "basaratali@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/basarat/cab/issues"
+  },
+  "homepage": "https://github.com/basarat/cab#readme"
+}
