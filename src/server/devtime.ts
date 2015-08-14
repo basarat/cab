@@ -127,7 +127,7 @@ export function setup(app: express.Express) {
         let compiler = Webpack(config);
         compiler.run((err, stats) => {
             if (err) {
-                console.error('failed to refresh bundle', err);
+                console.error('Failed to refresh bundle', err);
             }
             else {
                 console.log('Refreshed bundle');
