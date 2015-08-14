@@ -1,11 +1,14 @@
 #!/usr/bin/env node
 import * as express from "express";
-import {errorCodes, exit} from "./errorCodes";
+import serveStatic = require("serve-static");
+import {errorCodes, exit} from "./server/errorCodes";
 
 let port = 3000;
 var app = express();
 
-app.use(express.static('public'));
+app.use(serveStatic(__dirname + '/public',{
+    
+}));
 
 var server = app.listen(port, function(e) {
     if (e) {

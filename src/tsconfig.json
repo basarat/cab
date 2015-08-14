@@ -12,8 +12,7 @@
         "removeComments": true,
         "noLib": false,
         "preserveConstEnums": true,
-        "suppressImplicitAnyIndexErrors": true,
-        "outDir": "../dist"
+        "suppressImplicitAnyIndexErrors": true
     },
     "filesGlob": [
         "./**/*.ts",
@@ -21,10 +20,10 @@
         "!./node_modules/**/*"
     ],
     "files": [
-        "./errorCodes.ts",
         "./index.ts",
         "./public/common/main.ts",
         "./public/common/utils.ts",
+        "./server/errorCodes.ts",
         "./typings/express/express.d.ts",
         "./typings/mime/mime.d.ts",
         "./typings/node/node.d.ts",

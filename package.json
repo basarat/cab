@@ -2,9 +2,9 @@
   "name": "cab",
   "version": "1.0.0",
   "description": "Code Analysis Buddy",
-  "main": "dist/index.js",
+  "main": "src/index.js",
   "bin": {
-    "cab": "./dist/index.js"
+    "cab": "./src/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -27,8 +27,9 @@
   "preferGlobal": true,
   "homepage": "https://github.com/basarat/cab#readme",
   "dependencies": {
-    "express": "^4.13.3",
+    "express": "4.13.0",
     "ntypescript": "1.201508132343.1",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "serve-static": "^1.10.0"
   }
 }

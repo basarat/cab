@@ -1,4 +1,5 @@
 .tscache
 node_modules
 .baseDir.ts
-dist/**/*
+src/**/*.js
+
