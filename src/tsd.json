@@ -19,6 +19,9 @@
     },
     "cookie-parser/cookie-parser.d.ts": {
       "commit": "e95958ac847d9a343bdc8d7cbc796a5f6da29f71"
+    },
+    "react/react.d.ts": {
+      "commit": "e95958ac847d9a343bdc8d7cbc796a5f6da29f71"
     }
   }
 }
