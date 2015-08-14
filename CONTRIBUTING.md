@@ -1,10 +1,18 @@
 # Setup
-I presently use [`atom-typescript`](https://atom.io/packages/atom-typescript). Eventually this project should be self hosting. 
-
-## Your friends
 ```
+git clone https://github.com/basarat/cab.git
+cd cab
 npm install
-npm prune
+npm link 
+```
+
+Now run `cab` and visit `http://localhost:port/dev` to enable the development workflow.
+
+# IDE
+We presently use [`atom-typescript`](https://atom.io/packages/atom-typescript). Eventually this project should be self hosting. 
+
+```
+atom .
 ```
 
 ## Webpack

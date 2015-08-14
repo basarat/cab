@@ -1,7 +1,5 @@
 # cab
-Code Analysis Buddy
-
-Gives in depth analysis and a dev environment for TypeScript that is: 
+Code Analysis B__. Gives in depth analysis and a dev environment for TypeScript that is: 
 
 * easy to install
 * easy to use
@@ -15,3 +13,6 @@ To run:
 ```
 cab -p .
 ```
+
+## Name
+Its easy to type `cab`, its memorable, and was available on NPM.

@@ -19,8 +19,8 @@
         "!./node_modules/**/*"
     ],
     "files": [
-        "./app/common/utils.ts",
         "./app/main.ts",
+        "./common/utils.ts",
         "./server.ts",
         "./server/cookies.ts",
         "./server/devtime.ts",
