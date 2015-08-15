@@ -31,7 +31,6 @@
         "./typings/react/react.d.ts",
         "./typings/serve-static/serve-static.d.ts",
         "./typings/tsd.d.ts",
-        "./app/baseComponent.tsx",
         "./app/main.tsx",
         "./app/material-ui.tsx",
         "./app/rootComponent.tsx"
