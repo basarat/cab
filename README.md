@@ -7,11 +7,11 @@ Code Analysis Butler. Gives in depth analysis and a dev environment for TypeScri
 Let us take you for a ride of your life 🌹
 
 ## Usage 
-Run the following to get it: 
+Get it: 
 ```
 npm install cab -g
 ```
-To run: 
+Run it: 
 ```
 cab -p .
 ```
