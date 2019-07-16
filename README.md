@@ -1,4 +1,7 @@
 # cab 🚕
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/basarat/cab.svg)](https://greenkeeper.io/)
+
 Code Analysis Butler. Gives in depth analysis and a dev environment for TypeScript that is: 
 
 * easy to install
